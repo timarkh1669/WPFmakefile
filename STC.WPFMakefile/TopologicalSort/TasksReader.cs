@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace STC.TopologicalSort
+namespace STC.WPFMakefile.TopologicalSort
 {
     class TasksReader
     {
@@ -46,9 +46,21 @@ namespace STC.TopologicalSort
                 foreach (var d in t.DependenciesNames)
                     tasksAll[t.Name].AddDependency(tasksAll[d]);
             }
+            var tasks = tasksAll.Values.ToList();
+            if (!CheckDependencies(tasks, tasksAll))
+                throw new ApplicationException("!!! unexistable dependency name");
 
             return tasksAll.Values.ToList();
         }
 
+        public bool CheckDependencies(List<AssemblyTaskWithDependencies> tasks, Dictionary<string, AssemblyTaskWithDependencies> tasksDict)
+        {
+            foreach(var d in tasks.SelectMany(x => x.DependenciesNames))
+            {
+                if (!tasksDict.ContainsKey(d))
+                    return false;
+            }
+            return true;
+        }
     }
 }

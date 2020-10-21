@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace STC.TopologicalSort
+namespace STC.WPFMakefile.TopologicalSort
 {
     interface IGraphVertex<T>
     {

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using STC.WPFMakefile.TopologicalSort;
+using STC.WPFMakefile.ViewModel;
 
 namespace STC.WPFMakefile
 {
@@ -24,56 +25,30 @@ namespace STC.WPFMakefile
         public MainWindow()
         {
             InitializeComponent();
-            
         }
+
         private void OpenFileButton_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document";
-            dlg.DefaultExt = ".txt";
-            dlg.Filter = "Text documents (.txt)|*.txt";
+            //dlg.DefaultExt = ".txt";
+            dlg.Filter = "All documents |*.*";
 
             Nullable<bool> result = dlg.ShowDialog();
 
-            if (result == true)
+            if (result.HasValue && result.Value)
             {
                 string filename = dlg.FileName;
+                filePath.Text = filename;
             }
         }
 
         private void ShowDependencies_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var filename = "";
-                
-                var tasks = new TasksReader(filename).ReadTasks();
-                var targetTask = GetTaskFromArgs(tasks, args);
-
-                var tasksSorted = (new TopologicalSort<AssemblyTaskWithDependencies>()).DfsSort(tasks, targetTask);
-                (new TasksExecutor()).PrintTasksConsole(tasksSorted);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error. " + e.Message);
-            }
+            var temp = (new STC.WPFMakefile.ViewModel.DependentTasksDisplay()).GetDependenciesNames(filePath.Text, targetName.Text);
+            actionsListView.Items.Clear();
+            foreach(var t in temp)
+                actionsListView.Items.Add(t);//!!!
         }
-
-        //!!!
-        private static AssemblyTaskWithDependencies GetTaskFromArgs(
-    List<AssemblyTaskWithDependencies> tasks,
-    string[] args)
-        {
-            if (args == null || args.Length == 0)
-                throw new ArgumentException("Task name wasn't specified.");
-
-            string targetTaskName = args[0];
-            var targetTask = tasks.FirstOrDefault(t => t.Name == targetTaskName);
-            if (targetTask == null)
-                throw new ArgumentException("There is no task with requested name.");
-
-            return targetTask;
-        }
-
     }
 }

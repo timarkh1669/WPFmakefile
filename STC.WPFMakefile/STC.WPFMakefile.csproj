@@ -55,6 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TopologicalSort\AssemblyTaskWithDependencies.cs" />
+    <Compile Include="TopologicalSort\IGraphVertex.cs" />
+    <Compile Include="TopologicalSort\TasksExecutor.cs" />
+    <Compile Include="TopologicalSort\TasksReader.cs" />
+    <Compile Include="TopologicalSort\TopologicalSort.cs" />
+    <Compile Include="ViewModel\DependentTasksDisplay.cs" />
+    <Page Include="Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,10 +105,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\STC.TopologicalSort\STC.TopologicalSort.csproj">
-      <Project>{c4f70c9f-0f92-4490-8aca-7bafafbcd4f0}</Project>
-      <Name>STC.TopologicalSort</Name>
-    </ProjectReference>
+    <Folder Include="View\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
