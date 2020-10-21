@@ -45,7 +45,7 @@ namespace STC.WPFMakefile
 
         private void ShowDependencies_Click(object sender, RoutedEventArgs e)
         {
-            var temp = (new STC.WPFMakefile.ViewModel.DependentTasksDisplay()).GetDependenciesNames(filePath.Text, targetName.Text);
+            var temp = (new STC.WPFMakefile.ViewModel.DependentTasksDisplay()).GetDependenciesNamesOrder(filePath.Text, targetName.Text);
             actionsListView.Items.Clear();
             foreach(var t in temp)
                 actionsListView.Items.Add(t);//!!!

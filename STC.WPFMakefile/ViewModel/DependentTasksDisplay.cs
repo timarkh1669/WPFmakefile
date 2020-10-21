@@ -10,12 +10,12 @@ namespace STC.WPFMakefile.ViewModel
 {
     class DependentTasksDisplay
     {
-        public List<string> GetDependenciesNames(string fileName, string targetName)
+        public List<string> GetDependenciesNamesOrder(string fileName, string targetName)
         {
             try
             {
                 var tasksSorted = GetDependencies(fileName, targetName);
-                return tasksSorted.Select(x => x.Name).ToList();
+                return tasksSorted.SelectMany(x => x.Actions).ToList();
             }
             catch (Exception ex)
             {
