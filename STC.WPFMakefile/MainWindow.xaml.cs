@@ -22,9 +22,14 @@ namespace STC.WPFMakefile
     /// </summary>
     public partial class MainWindow : Window
     {
+        private AssemblyTaskDependenciesViewModel tmp;
         public MainWindow()
         {
             InitializeComponent();
+            // DataContext = new MyVm(new MyModel);
+            //DataContext = new AssemblyTaskDependenciesViewModel();
+            this.DataContext = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
+            tmp = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
         }
 
         private void OpenFileButton_Click(object sender, RoutedEventArgs e)
@@ -44,7 +49,10 @@ namespace STC.WPFMakefile
 
         private void ShowDependencies_Click(object sender, RoutedEventArgs e)
         {
-            DataContext = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
+            tmp.CalculateDependencies(filePath.Text, targetName.Text);
+            this.DataContext = tmp;
+            //DataContext = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
+            //            ((AssemblyTaskDependenciesViewModel)DataContext).CalculateDependencies(filePath.Text, targetName.Text);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -9,27 +10,31 @@ using System.Windows.Data;
 
 namespace STC.WPFMakefile.ViewModel
 {
-    class AssemblyTaskDependenciesViewModel : DependencyObject
+    class AssemblyTaskDependenciesViewModel : ObservableCollection<string>
     {
-        //propdp
+        private DependentTasksDisplay d;
+        public ICollectionView Dependencies { get ; set ; }
+        public ObservableCollection<string> tasks;
 
-        public ICollectionView Dependencies
+        public AssemblyTaskDependenciesViewModel()
         {
-            get { return (ICollectionView)GetValue(DependenciesProperty); }
-            set { SetValue(DependenciesProperty, value); }
+            d = new STC.WPFMakefile.ViewModel.DependentTasksDisplay();
         }
 
-        public static readonly DependencyProperty DependenciesProperty =
-            DependencyProperty.Register("Dependencies", typeof(ICollectionView), typeof(AssemblyTaskDependenciesViewModel), new PropertyMetadata(null));
-
-        public AssemblyTaskDependenciesViewModel(List<string> args)
-        {
-            Dependencies = CollectionViewSource.GetDefaultView(args);
-        }
         public AssemblyTaskDependenciesViewModel(string filePath, string targetName)
         {
-            var a = (new STC.WPFMakefile.ViewModel.DependentTasksDisplay()).GetDependenciesNamesOrder(filePath, targetName);
-            Dependencies = CollectionViewSource.GetDefaultView(a);
+            d = new STC.WPFMakefile.ViewModel.DependentTasksDisplay();
+
+            var dependencies = d.GetDependenciesNamesOrder(filePath, targetName);
+            Dependencies = CollectionViewSource.GetDefaultView(dependencies);
+            //!!! ObservableCollectionResults
+            //!!! ObservableCollectionTargets
+        }
+
+        public void CalculateDependencies(string filePath, string targetName)
+        {
+            var dependencies = d.GetDependenciesNamesOrder(filePath, targetName);
+            Dependencies = CollectionViewSource.GetDefaultView(dependencies);
         }
     }
 }

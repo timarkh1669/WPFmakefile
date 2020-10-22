@@ -58,10 +58,12 @@
     <Compile Include="Model\AssemblyTaskWithDependencies.cs" />
     <Compile Include="TopologicalSort\IGraphVertex.cs" />
     <Compile Include="Helpers\TasksExecutor.cs" />
-    <Compile Include="Helpers\TasksReader.cs" />
+    <Compile Include="Model\TasksReader.cs" />
     <Compile Include="TopologicalSort\TopologicalSort.cs" />
     <Compile Include="ViewModel\AssemblyTaskDependenciesViewModel.cs" />
+    <Compile Include="ViewModel\ButtonCommand.cs" />
     <Compile Include="ViewModel\DependentTasksDisplay.cs" />
+    <Compile Include="ViewModel\TestObservableColl.cs" />
     <Page Include="Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

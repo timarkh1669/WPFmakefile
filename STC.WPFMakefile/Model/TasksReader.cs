@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using STC.WPFMakefile.Model;
 
-namespace STC.WPFMakefile.Helpers
+namespace STC.WPFMakefile.Model
 {
     class TasksReader
     {
@@ -49,7 +49,7 @@ namespace STC.WPFMakefile.Helpers
             }
             var tasks = tasksAll.Values.ToList();
             if (!CheckDependencies(tasks, tasksAll))
-                throw new ApplicationException("!!! unexistable dependency name");
+                throw new ApplicationException("Dependency name + " + "dowsn't exist");
 
             return tasksAll.Values.ToList();
         }

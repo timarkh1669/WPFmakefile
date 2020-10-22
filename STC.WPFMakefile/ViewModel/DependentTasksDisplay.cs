@@ -20,15 +20,12 @@ namespace STC.WPFMakefile.ViewModel
             {
                 var tasksSorted = GetDependencies(fileName, targetName);
 
-                var a = new AssemblyTaskDependenciesViewModel(new List<string>() { "aa", "bb" });
                 return tasksSorted.SelectMany(x => x.Actions).ToList();
             }
             catch (Exception ex)
             {
-                var a = new AssemblyTaskDependenciesViewModel(new List<string>() { "cc", "bb" });
                 return new List<string> { "Error. " + ex.Message };
             }
-            
         }
 
         public List<AssemblyTaskWithDependencies> GetDependencies(string fileName, string targetName)
