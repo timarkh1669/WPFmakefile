@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
+using STC.WPFMakefile.Helpers;
+using STC.WPFMakefile.Model;
 using STC.WPFMakefile.TopologicalSort;
 
 namespace STC.WPFMakefile.ViewModel
@@ -15,12 +19,16 @@ namespace STC.WPFMakefile.ViewModel
             try
             {
                 var tasksSorted = GetDependencies(fileName, targetName);
+
+                var a = new AssemblyTaskDependenciesViewModel(new List<string>() { "aa", "bb" });
                 return tasksSorted.SelectMany(x => x.Actions).ToList();
             }
             catch (Exception ex)
             {
+                var a = new AssemblyTaskDependenciesViewModel(new List<string>() { "cc", "bb" });
                 return new List<string> { "Error. " + ex.Message };
             }
+            
         }
 
         public List<AssemblyTaskWithDependencies> GetDependencies(string fileName, string targetName)
@@ -30,7 +38,9 @@ namespace STC.WPFMakefile.ViewModel
                 if (string.IsNullOrEmpty(targetName))
                     throw new ArgumentException("Target name not specified");
                 if (string.IsNullOrEmpty(fileName))
-                    throw new ArgumentException("Target name not specified");
+                    throw new ArgumentException("File name not specified");
+                if (!File.Exists(fileName))
+                    throw new ArgumentException("File with path <" + fileName + "> not found");
 
                 var tasks = new TasksReader(fileName).ReadTasks();
                 var targetTask = tasks.FirstOrDefault(t => t.Name == targetName);
@@ -45,6 +55,5 @@ namespace STC.WPFMakefile.ViewModel
                 throw ex;
             }
         }
-
     }
 }

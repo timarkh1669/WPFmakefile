@@ -31,12 +31,11 @@ namespace STC.WPFMakefile
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document";
-            //dlg.DefaultExt = ".txt";
             dlg.Filter = "All documents |*.*";
 
             Nullable<bool> result = dlg.ShowDialog();
 
-            if (result.HasValue && result.Value)
+            if (result == true)
             {
                 string filename = dlg.FileName;
                 filePath.Text = filename;
@@ -45,10 +44,7 @@ namespace STC.WPFMakefile
 
         private void ShowDependencies_Click(object sender, RoutedEventArgs e)
         {
-            var temp = (new STC.WPFMakefile.ViewModel.DependentTasksDisplay()).GetDependenciesNamesOrder(filePath.Text, targetName.Text);
-            actionsListView.Items.Clear();
-            foreach(var t in temp)
-                actionsListView.Items.Add(t);//!!!
+            DataContext = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
         }
     }
 }

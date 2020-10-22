@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using STC.WPFMakefile.TopologicalSort;
 
-namespace STC.WPFMakefile.TopologicalSort
+namespace STC.WPFMakefile.Model
 {
     class AssemblyTaskWithDependencies : IGraphVertex<AssemblyTaskWithDependencies>
     {

@@ -4,8 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using STC.WPFMakefile.Model;
 
-namespace STC.WPFMakefile.TopologicalSort
+namespace STC.WPFMakefile.Helpers
 {
     class TasksReader
     {
