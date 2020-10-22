@@ -1,9 +1,9 @@
-﻿<Window x:Class="STC.WPFMakefile.MainWindow"
+﻿<Window x:Class="STC.WPFMakefile.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STC.WPFMakefile"
+        xmlns:vm="clr-namespace:STC.WPFMakefile.ViewModel"
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -36,13 +36,10 @@
             </StackPanel>
         </Button>
 
-        <ListView x:Name="actionsListView1" Grid.Row="3" Grid.RowSpan="2">
-            <WrapPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15">Actions order:</TextBlock>
-                <ListView x:Name="actionsListView">
-                    
-                </ListView>
-            </WrapPanel>
-        </ListView>
+        <WrapPanel Orientation="Horizontal" Grid.Row="3" Grid.RowSpan="2">
+            <TextBlock  Text="Actions order:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="10"/>
+            <ListView x:Name="actionsListView" ItemsSource="{Binding vm:}">
+            </ListView>
+        </WrapPanel>
     </Grid>
 </Window>
