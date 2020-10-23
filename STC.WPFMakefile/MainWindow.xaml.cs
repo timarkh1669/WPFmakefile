@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,24 +15,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using STC.WPFMakefile.Annotations;
 using STC.WPFMakefile.TopologicalSort;
 using STC.WPFMakefile.ViewModel;
 
 namespace STC.WPFMakefile
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private AssemblyTaskDependenciesViewModel tmp;
+        public MainViewModel AssemblyTaskDependencies { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            // DataContext = new MyVm(new MyModel);
-            //DataContext = new AssemblyTaskDependenciesViewModel();
-            this.DataContext = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
-            tmp = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
+            this.DataContext = this;
+            AssemblyTaskDependencies = new MainViewModel();
         }
 
         private void OpenFileButton_Click(object sender, RoutedEventArgs e)
@@ -41,18 +41,20 @@ namespace STC.WPFMakefile
             Nullable<bool> result = dlg.ShowDialog();
 
             if (result == true)
-            {
-                string filename = dlg.FileName;
-                filePath.Text = filename;
-            }
+                AssemblyTaskDependencies.FilePath = dlg.FileName;
         }
 
         private void ShowDependencies_Click(object sender, RoutedEventArgs e)
         {
-            tmp.CalculateDependencies(filePath.Text, targetName.Text);
-            this.DataContext = tmp;
-            //DataContext = new AssemblyTaskDependenciesViewModel(filePath.Text, targetName.Text);
-            //            ((AssemblyTaskDependenciesViewModel)DataContext).CalculateDependencies(filePath.Text, targetName.Text);
+            AssemblyTaskDependencies.CalculateDependencies();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

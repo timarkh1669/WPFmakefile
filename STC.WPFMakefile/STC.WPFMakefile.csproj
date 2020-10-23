@@ -56,14 +56,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\AssemblyTaskWithDependencies.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="TopologicalSort\IGraphVertex.cs" />
     <Compile Include="Helpers\TasksExecutor.cs" />
     <Compile Include="Model\TasksReader.cs" />
     <Compile Include="TopologicalSort\TopologicalSort.cs" />
-    <Compile Include="ViewModel\AssemblyTaskDependenciesViewModel.cs" />
-    <Compile Include="ViewModel\ButtonCommand.cs" />
-    <Compile Include="ViewModel\DependentTasksDisplay.cs" />
-    <Compile Include="ViewModel\TestObservableColl.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\TargetsViewModel.cs" />
     <Page Include="Icons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

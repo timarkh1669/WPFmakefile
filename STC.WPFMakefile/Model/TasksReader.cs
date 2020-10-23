@@ -49,7 +49,7 @@ namespace STC.WPFMakefile.Model
             }
             var tasks = tasksAll.Values.ToList();
             if (!CheckDependencies(tasks, tasksAll))
-                throw new ApplicationException("Dependency name + " + "dowsn't exist");
+                throw new ApplicationException("Dependency name + " + "doesn't exist");
 
             return tasksAll.Values.ToList();
         }

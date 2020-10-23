@@ -7,7 +7,7 @@ using STC.WPFMakefile.TopologicalSort;
 
 namespace STC.WPFMakefile.Model
 {
-    class AssemblyTaskWithDependencies : IGraphVertex<AssemblyTaskWithDependencies>
+    public class AssemblyTaskWithDependencies : IGraphVertex<AssemblyTaskWithDependencies>
     {
         public string Name { get; }
         public List<string> DependenciesNames { get; }

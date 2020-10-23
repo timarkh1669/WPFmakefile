@@ -28,7 +28,8 @@
                 <ColumnDefinition Width="Auto"  />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="filePath" Padding="2" Margin="10 10 0 10" Width="Auto"  Grid.Column="0">
+            <!-- !!! change only after clicking on another place -->
+            <TextBox Padding="2" Margin="10 10 0 10" Width="Auto" Grid.Column="0" Text="{Binding Path=AssemblyTaskDependencies.FilePath, Mode=TwoWay}">
                 <TextBox.Style>
                     <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                         <Style.Resources>
@@ -56,12 +57,9 @@
             <Button x:Name="openFileButton" Width="60" Margin="10" Content="Open..." Click="OpenFileButton_Click"  Grid.Column="1"/>
         </Grid>
 
-        <!-- !!!  -->
         <!-- Binding ObservableCollection ; SelectedTarget -->
         <!-- ItemsSource="{Binding TestObservableColl}" -->
-        <ComboBox x:Name="targetName" Padding="2" Margin="10" Grid.Row="1" Grid.Column="1"><!-- InputBinding-->
-            <TextBlock>task1</TextBlock>
-            <TextBlock>task2</TextBlock>
+        <ComboBox Padding="2" Margin="10" Grid.Row="1" Grid.Column="1" Text="Select target" ItemsSource="{Binding Path=AssemblyTaskDependencies.Targets, Mode=OneWay}" SelectedValue="{Binding Path=AssemblyTaskDependencies.SelectedTarget, Mode=OneWayToSource}"><!-- InputBinding-->
         </ComboBox>
 
         <!-- !!! ICommand -->
@@ -74,9 +72,7 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="Actions order:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="10"/>
-            <ListView x:Name="ActionsListView" ItemsSource="{Binding Dependencies}" Margin="20" BorderThickness="0">
-                
-            </ListView>
+            <ListView x:Name="ActionsListView" ItemsSource="{Binding Path=AssemblyTaskDependencies.AssemblyTaskDependencies, Mode=OneWay}" Margin="20" BorderThickness="0" />
         </StackPanel>
     </Grid>
 </Window>

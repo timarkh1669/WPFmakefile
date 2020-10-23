@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace STC.WPFMakefile.ViewModel
 {
-    class TestObservableColl : ObservableCollection<string>
+    class TargetsViewModel : ObservableCollection<string>
     {
-
     }
 }
